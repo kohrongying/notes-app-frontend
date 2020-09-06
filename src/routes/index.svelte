@@ -1,46 +1,20 @@
-<style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import CollectionApi from "../api/collection";
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
+  let userId: string = 'J893XQ2lmy';
+  let collections: Array<{ objectId: string, name: string, userId: string}> = [];
 
-	figure {
-		margin: 0 0 1em 0;
-	}
+	onMount(async () => {
+    collections = await CollectionApi.getUserCollections(userId);
+	});
+</script>
 
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
+<h1>notes-app</h1>
+<p>user id is {userId}</p>
 
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
-</style>
-
-<svelte:head>
-	<title>Sapper project template</title>
-</svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Success Kid' src='successkid.jpg'>
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+{#if collections}
+  {#each collections as collection}
+    <p>{collection.name}</p>
+  {/each}
+{/if}
