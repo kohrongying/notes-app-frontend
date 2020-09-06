@@ -1,22 +1,8 @@
-# Sapper-Jest-Typescript Template
-
-Cloned from [sapper template](https://github.com/sveltejs/sapper-template) + other fun stuff
+# Notes-App-Frontend
 
 ### Features
-- [x] Typescript
-- [x] Jest with coverage
-- [x] Cypress (comes with sapper template)
-- [x] Github Action to test and validate ts and build to `docs` branch
+- Sapper x Typescript x Jest
 
-The main reason was that I wanted a fast test set up as I considered cypress as a end to end sort of integration testing. You may refer to `src/components/Nav.test.ts` for a sample test written to test individual svelte components.
-
-Deployed to [Github Pages](https://kohrongying.github.io/sapper-jest-typescript-template/)
-
-**Note:**
-- Require a relative baseUrl in order to be deployed onto Github pages
-- `src/server.js`: add base url to polka
-- `package.json/scripts`: add `--basepath <baseURL>` to export
-- `.github/workflows/build.yml`: For deploy action, update deploy folder to `__sapper__/export/<baseURL>`
 
 ### List of commands
 
@@ -43,3 +29,24 @@ npm run validate
 # Build files
 npm run build
 ```
+
+## Run parse backend in Docker
+```bash
+./start-parse-server.sh
+./shutdown-parse-server.sh
+```
+
+## Schema Design
+
+Collections 
+- name
+- userId (belongs to User)
+
+Doc 
+- name
+- collectionId (belongs to Collection)
+- content (can be in markdown)
+
+Link
+- url
+- docId
