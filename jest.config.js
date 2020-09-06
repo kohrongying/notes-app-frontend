@@ -7,7 +7,7 @@ module.exports = {
         "preprocess": true
       }
     ],
-    "^.+\\.test.ts$": "ts-jest"
+    "^.+\\.ts$": "ts-jest"
   },
   moduleFileExtensions: ["js", "svelte", "ts"],
   testPathIgnorePatterns: ["node_modules", "cypress"],
@@ -19,5 +19,6 @@ module.exports = {
   // allows you to do things like:
   // expect(element).toHaveTextContent(/react/i)
   // learn more: https://github.com/testing-library/jest-dom
-  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"]
+  setupFiles: ['./jest.setup.js'],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
 };

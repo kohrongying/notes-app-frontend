@@ -1,7 +1,7 @@
 
-const baseUrl:String = 'http://localhost:1337/parse'
+export const baseUrl:string = 'http://localhost:1337/parse'
 
-const defaultOptions = {
+export const defaultOptions = {
   headers: {
     'X-Parse-Application-Id': 'abc',
     'Content-Type': 'application/json'
