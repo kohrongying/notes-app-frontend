@@ -6,7 +6,7 @@
   let collections: Array<{ objectId: string, name: string, userId: string}> = [];
 
 	onMount(async () => {
-    collections = await CollectionApi.getUserCollections(userId);
+    collections = await CollectionApi.getCollections(userId);
 	});
 </script>
 
