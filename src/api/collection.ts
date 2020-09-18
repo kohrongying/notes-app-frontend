@@ -2,7 +2,7 @@ import fetch from "./base"
 
 export interface CollectionPostRequestInterface {
   name: string;
-  userId: string;
+  user: { __type: string, className: string, objectId: string };
 }
 
 export interface CollectionPutRequestInterface {
@@ -11,13 +11,28 @@ export interface CollectionPutRequestInterface {
 
 const CollectionApi = {
   getCollections: async (userId: string) => {
-    const query = encodeURI(JSON.stringify({ userId }))
-    const response = await fetch('classes/Collection?where=' + query, {})
+    const query = {
+      user: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: userId
+      }
+    }
+    const encodedQuery = encodeURI(JSON.stringify(query))
+    const response = await fetch('classes/Collection?where=' + encodedQuery, {})
       .then(r => r.json());
     return response.results;
   },
 
-  createCollection: async (body: CollectionPostRequestInterface) => {
+  createCollection: async (name: string, userId: string) => {
+    const body: CollectionPostRequestInterface = {
+      name,
+      user: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: userId
+      }
+    }
     const response = await fetch('classes/Collection', {
       body: JSON.stringify(body),
       method: 'POST'

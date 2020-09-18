@@ -23,10 +23,7 @@ describe('get Collections', () => {
     const userId = '123'
     await CollectionApi.getCollections(userId)
     expect(fetch.mock.calls.length).toEqual(1)
-    expect(fetch).toHaveBeenCalledWith(
-      `${baseUrl}/classes/Collection?where=${encodeURI(JSON.stringify({ userId }))}`, 
-      defaultOptions
-    )
+    expect(fetch.mock.calls[0][0]).toContain(`${baseUrl}/classes/Collection?where=`)
   })
 
   it('returns collections', async () => {
@@ -45,13 +42,17 @@ describe('create Collection', () => {
   it('makes a post request', async () => {
     const body: CollectionPostRequestInterface = {
       name: 'testName',
-      userId: 'test'
+      user: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: '123'
+      }
     }
     fetch.mockResponseOnce(JSON.stringify({
       objectId: 'abc',
       createdAt: '2020-09-09T10:15:12.948Z'
     }))
-    await CollectionApi.createCollection(body)
+    await CollectionApi.createCollection('testName', '123')
     expect(fetch.mock.calls.length).toEqual(1)
     expect(fetch.mock.calls[0][0]).toEqual(`${baseUrl}/classes/Collection`)
     expect(fetch.mock.calls[0][1]).toMatchObject({ body: JSON.stringify(body)})
@@ -77,13 +78,6 @@ describe('update Collection', () => {
     expect(fetch.mock.calls[0][0]).toEqual(`${baseUrl}/classes/Collection/${objectId}`)
     expect(fetch.mock.calls[0][1]).toMatchObject({ body: JSON.stringify(body) })
     expect(fetch.mock.calls[0][1]).toMatchObject({ method: 'PUT' })
-  })
-
-  it('fails when using a Post Request Interface', async () => {
-    const body: CollectionPostRequestInterface = {
-      name: 'testName',
-      userId: 'test'
-    }
   })
 })
 
