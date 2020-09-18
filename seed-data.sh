@@ -5,12 +5,19 @@ userId=$(curl --silent --request POST \
   --header 'content-type: application/json' \
   --header "x-parse-application-id: $appId" \
   --data '{
-	"username": "cooldude",
+	"username": "cooldude2",
 	"password": "password"
 }' | jq -r '.objectId')
 echo "userId is ${userId}"
 
-collectionJson=$(jq -n --arg userId "$userId" '{ name: "Recipes", userId: $userId }')
+collectionJson=$(jq -n --arg userId "$userId" '{ 
+  name: "Recipes", 
+  user: {
+		"__type": "Pointer",
+		"className": "_User",
+		"objectId": $userId
+	}
+}')
 
 collectionId=$(curl --silent --request POST \
   --url http://localhost:1337/parse/classes/Collection \
@@ -19,7 +26,14 @@ collectionId=$(curl --silent --request POST \
   --data "$collectionJson" | jq -r '.objectId')
 
 
-docJson=$(jq -n --arg collectionId "$collectionId" '{ name: "Cookies", collectionId: $collectionId }')
+docJson=$(jq -n --arg collectionId "$collectionId" '{ 
+  name: "Cookies", 
+  collection: {
+		"__type": "Pointer",
+		"className": "Collection",
+		"objectId": $collectionId
+	}
+}')
 
 docId=$(curl --silent --request POST \
   --url http://localhost:1337/parse/classes/Document \

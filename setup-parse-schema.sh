@@ -10,7 +10,7 @@ curl -v --request POST \
 	"className": "Collection",
 	"fields": {
 		"name": { "type": "String" },
-		"userId": { "type": "String"}
+		"user": { "type": "Pointer", "targetClass": "_User" }
 	}
 }' > /dev/null 2>&1
 
@@ -23,8 +23,8 @@ curl --request POST \
 	"className": "Document",
 	"fields": {
 		"name": { "type": "String" },
-		"collectionId": { "type": "String"},
-		"content": { "type": "String"}
+		"collection": { "type": "Pointer", "targetClass": "Collection" },
+		"content": { "type": "String" }
 	}
 }' > /dev/null 2>&1
 
@@ -37,7 +37,7 @@ curl --request POST \
 	"className": "Link",
 	"fields": {
 		"url": { "type": "String" },
-		"documentId": { "type": "String"}
+		"document": { "type": "Pointer", "targetClass": "Document" }
 	}
 }' > /dev/null 2>&1
 
