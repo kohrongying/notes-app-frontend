@@ -39,11 +39,3 @@ check_dependecies
 run_mongo 
 echo
 run_parse $1 $2
-
-echo
-echo "Setting up schemas now..."
-./setup-parse-schema.sh $1 $2
-
-echo
-echo "Seeding data now..."
-./seed-data.sh $1
