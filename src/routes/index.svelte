@@ -3,6 +3,7 @@
   import CollectionApi from "../api/collection";
   import Modal from '../components/modal/Modal.svelte'
   import SvgIcon from '../svg/SvgIcon.svelte'
+  import Button from '../components/button/Button.svelte'
 
   let userId: string = 'sprNjQEcRv';
   let collections: Array<{ objectId: string, name: string, user: { __type: string, className: string, objectId: string }}> = [];
@@ -63,7 +64,7 @@
 <h1>notes-app</h1>
 <p>user id is {userId}</p>
 
-<button on:click={modalSetVisible(true)}>Add Collection</button>
+<Button onClick={modalSetVisible(true)}>Add Collection</Button>
 {#if collections}
   {#each collections as collection}
   <div class="card">
@@ -92,5 +93,5 @@
 
 <Modal open={openModal} onClose={modalSetVisible(false)} title="Add Collection">
   <input name="name" bind:value={collectionName} />
-  <button on:click={handleCreate}>Submit</button>
+  <Button onClick={handleCreate}>Submit</Button>
 </Modal>
