@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import CollectionApi from "../api/collection";
   import Modal from '../components/modal/Modal.svelte'
-  import SvgIcon from '../svg/SvgIcon.svelte'
+  import SvgIcon from '../components/svg/SvgIcon.svelte'
   import Button from '../components/button/Button.svelte'
 
   let userId: string = 'sprNjQEcRv';
