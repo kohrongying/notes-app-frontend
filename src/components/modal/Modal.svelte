@@ -1,7 +1,7 @@
 <script lang="ts">
   export let open: boolean;
   export let title: string;
-  export let onClose: func;
+  export let onClose: any;
 
 </script>
 

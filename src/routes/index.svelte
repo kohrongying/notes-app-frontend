@@ -6,7 +6,7 @@
   import Button from '../components/button/Button.svelte'
 
   let userId: string = 'sprNjQEcRv';
-  let collections: Array<{ objectId: string, name: string, user: { __type: string, className: string, objectId: string }}> = [];
+  let collections: Array<{ objectId: string, name: string, user: { __type: string, className: string, objectId: string }, showMore: boolean, isUpdating: boolean}> = [];
   let openModal = false;
   let collectionName = '';
 
@@ -20,7 +20,7 @@
     collections = await CollectionApi.getCollections(userId);
   }
 
-  const handleUpdate = (collectionId, updatedName) => async () => {
+  const handleUpdate = (collectionId: string, updatedName: string) => async () => {
     const body = {
       name: updatedName
     }
@@ -28,12 +28,12 @@
     collections = await CollectionApi.getCollections(userId);
   }
 
-  const handleDelete = (collectionId) => async () => {
+  const handleDelete = (collectionId: string) => async () => {
     await CollectionApi.deleteCollection(collectionId)
     collections = await CollectionApi.getCollections(userId);
   }
   
-  const modalSetVisible = (visible) => () => openModal = visible; 
+  const modalSetVisible = (visible: boolean) => () => openModal = visible; 
 </script>
 
 <style>
